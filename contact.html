@@ -134,7 +134,13 @@
 
             <!-- Formulaire (wrapper) -->
             <div id="form-wrapper">
-              <form id="contact-form" novalidate>
+              <form
+                id="contact-form"
+                action="https://formspree.io/f/mkjnywzq"
+                method="POST"
+                novalidate
+              >
+                <input type="hidden" name="_subject" value="Nouvelle demande de contact — BMGJ Groupe" />
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                   <!-- Nom -->
                   <div>
@@ -146,6 +152,7 @@
                       id="nom"
                       name="nom"
                       placeholder="Jean Koffi"
+                      required
                       autocomplete="name"
                       class="w-full font-montserrat text-sm px-4 py-3 rounded-lg border border-[#8A93A3] focus:border-[#2158C6] focus:ring-1 focus:ring-[#2158C6] outline-none transition-colors duration-200 bg-white text-[#3D4552] placeholder:text-[#8A93A3]"
                     />
@@ -188,6 +195,7 @@
                       id="email"
                       name="email"
                       placeholder="jean@mapme.bj"
+                      required
                       autocomplete="email"
                       class="w-full font-montserrat text-sm px-4 py-3 rounded-lg border border-[#8A93A3] focus:border-[#2158C6] focus:ring-1 focus:ring-[#2158C6] outline-none transition-colors duration-200 bg-white text-[#3D4552] placeholder:text-[#8A93A3]"
                     />
@@ -204,6 +212,7 @@
                     id="besoin"
                     name="besoin"
                     rows="4"
+                    required
                     placeholder="Décrivez votre projet, vos objectifs, votre cible..."
                     class="w-full font-montserrat text-sm px-4 py-3 rounded-lg border border-[#8A93A3] focus:border-[#2158C6] focus:ring-1 focus:ring-[#2158C6] outline-none transition-colors duration-200 bg-white text-[#3D4552] placeholder:text-[#8A93A3] resize-none"
                   ></textarea>

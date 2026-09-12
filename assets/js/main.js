@@ -127,10 +127,50 @@ if (contactForm) {
     }
 
     if (valid) {
-      const formWrapper = document.getElementById('form-wrapper');
-      const formSuccess = document.getElementById('form-success');
-      if (formWrapper) formWrapper.classList.add('hidden');
-      if (formSuccess) formSuccess.classList.remove('hidden');
+      // Formspree reçoit les données et les transfère vers l'adresse e-mail
+      // configurée sur le compte Formspree associé à cet endpoint.
+      const submitButton = contactForm.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Envoi en cours...';
+      }
+
+      const formData = new FormData(contactForm);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(async (response) => {
+        if (!response.ok) {
+          let message = 'Une erreur est survenue. Veuillez réessayer.';
+          try {
+            const data = await response.json();
+            if (data.errors && data.errors.length) {
+              message = data.errors.map(error => error.message).join(' ');
+            }
+          } catch (_) {}
+          throw new Error(message);
+        }
+
+        const formWrapper = document.getElementById('form-wrapper');
+        const formSuccess = document.getElementById('form-success');
+        if (formWrapper) formWrapper.classList.add('hidden');
+        if (formSuccess) formSuccess.classList.remove('hidden');
+        contactForm.reset();
+      })
+      .catch((error) => {
+        alert(error.message || 'Impossible d’envoyer le message. Veuillez réessayer.');
+      })
+      .finally(() => {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Envoyer ma demande';
+        }
+      });
     }
   });
 
